@@ -3,10 +3,10 @@ export function Navbar() {
     <nav>
       <div className="wrap nav-inner">
         <a className="logo" href="#top">
-          <img src="/kalakal-heart.png" alt="Kalakal.app orange heart logo" />
-          <span className="brand">
-            kalakal<span className="dot">.app</span>
+          <span className="logo-mark">
+            <img src="/kalakal-heart-nav.png" alt="Kalakal.app orange heart logo" />
           </span>
+          <span className="brand">kalakal.app</span>
         </a>
         <div className="navlinks">
           <a href="#how">How It Works</a>

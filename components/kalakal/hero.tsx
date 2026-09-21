@@ -4,7 +4,7 @@ export function Hero() {
       <div className="wrap hero-grid">
         <div className="hero-copy">
           <img className="hero-logo" src="/kalakal-logo.png" alt="Kalakal.app orange heart logo" />
-          <div className="eyebrow">New-Gen Barter</div>
+          <div className="eyebrow eyebrow-orange">New-Gen Barter</div>
           <h1>
             Trade <span className="orange">value.</span>
             <br />
@@ -32,11 +32,13 @@ export function Hero() {
           <div className="orb three" />
 
           <div className="card small">
-            <div className="eyebrow">You can offer</div>
-            <span className="pill">Design</span>
-            <span className="pill">Writing</span>
-            <span className="pill">Time</span>
-            <span className="pill">Skills</span>
+            <div className="eyebrow eyebrow-orange">You Can Offer</div>
+            <div className="pill-row">
+              <span className="pill">Design</span>
+              <span className="pill">Writing</span>
+              <span className="pill">Time</span>
+              <span className="pill">Skills</span>
+            </div>
           </div>
 
           <div className="card main">

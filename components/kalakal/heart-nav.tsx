@@ -2,57 +2,55 @@
 
 import { useEffect, useState } from "react"
 
-const SECTIONS = [
-  { id: "top", label: "Home" },
-  { id: "idea", label: "The Idea" },
-  { id: "how", label: "How It Works" },
-  { id: "exchange", label: "Exchange" },
-  { id: "difference", label: "The Difference" },
-  { id: "story", label: "Our Story" },
-  { id: "inclusive", label: "Inclusive Design" },
-  { id: "start", label: "Start Exchanging" },
-]
-
 export function HeartNav() {
-  const [active, setActive] = useState("top")
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id)
-          }
-        })
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
-    )
-
-    SECTIONS.forEach(({ id }) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
+    const onScroll = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight
+      const pct = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0
+      setProgress(pct)
+    }
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
   }, [])
 
+  const size = 60
+  const stroke = 3
+  const r = (size - stroke) / 2
+  const circumference = 2 * Math.PI * r
+  const dash = circumference * progress
+
   return (
-    <nav className="heart-nav" aria-label="Section navigation">
-      {SECTIONS.map(({ id, label }) => (
-        <button
-          key={id}
-          type="button"
-          className={`dot${active === id ? " active" : ""}`}
-          aria-label={`Go to ${label}`}
-          aria-current={active === id ? "true" : undefined}
-          onClick={() => {
-            document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
-          }}
-        >
-          <img className="heart-mark" src="/kalakal-heart.png" alt="" aria-hidden="true" />
-          <span className="label">{label}</span>
-        </button>
-      ))}
-    </nav>
+    <button
+      type="button"
+      className="heart-nav"
+      aria-label={`Page progress ${Math.round(progress * 100)} percent. Back to top.`}
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    >
+      <svg className="heart-nav-ring" width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(37,37,37,0.14)" strokeWidth={stroke} />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke="var(--orange-bright)"
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={`${dash} ${circumference}`}
+          transform={`rotate(-90 ${size / 2} ${size / 2})`}
+          style={{ transition: "stroke-dasharray 0.1s linear" }}
+        />
+      </svg>
+      <span className="heart-nav-mark">
+        <img src="/kalakal-heart-nav.png" alt="" aria-hidden="true" />
+      </span>
+    </button>
   )
 }

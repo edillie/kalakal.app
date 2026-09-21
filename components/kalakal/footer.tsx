@@ -4,11 +4,11 @@ export function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div>
-            <img className="footer-logo" src="/kalakal-heart.png" alt="Kalakal.app orange heart logo" />
-            <div className="footer-brand">
-              kalakal<span className="dot">.app</span>
-            </div>
-            <div style={{ marginTop: 8, color: "#bbbbbb" }}>New-Gen Barter</div>
+            <span className="footer-mark">
+              <img src="/kalakal-heart-nav.png" alt="Kalakal.app orange heart logo" />
+            </span>
+            <div className="footer-brand">kalakal.app</div>
+            <div className="footer-tagline">New-Gen Barter</div>
           </div>
           <div className="footer-links">
             <a href="#how">How It Works</a>
